@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import { start } from "repl";
 import { userRouter } from "./users/users.js";
 
@@ -19,7 +19,7 @@ app.get("/hello", (req, res) => {
 
 app.use("/users", userRouter);
 
-app.use((error, req, res, next) => {
+app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   console.log(error.message);
   res.status(401).send(error.message);
 });
