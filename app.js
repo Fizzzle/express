@@ -13,10 +13,16 @@ app.use((req, res, next) => {
 
 app.get("/hello", (req, res) => {
   //   res.json({ status: "start" });
+  throw new Error("ERROR!!!1");
   res.end();
 });
 
 app.use("/users", userRouter);
+
+app.use((error, req, res, next) => {
+  console.log(error.message);
+  res.status(401).send(error.message);
+});
 
 app.listen(port, () => {
   console.log(`Сервер запущен http://localhost:${port}`);
